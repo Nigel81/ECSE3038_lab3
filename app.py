@@ -53,7 +53,7 @@ async def remove_tank(id:UUID):
 
 @app.patch("/tank/{id}")
 async def update_tank(id:UUID, tank_update: Tank_Update):
-    for i, tank in enumerate(data):  #returns index and tank
+    for i, tank in enumerate(data):
         if tank.id == id:
             tank_update_dict = tank_update.model_dump(exclude_unset=True) #exclude empty field
             try:
@@ -63,4 +63,4 @@ async def update_tank(id:UUID, tank_update: Tank_Update):
                 return JSONResponse(json_updated_tank, status_code=200)
             except ValidationError:
                 raise HTTPException(status_code=400, detail="Tank must have a location with both lat and long")
-        raise HTTPException(status_code=404, detail="Tank not found")
+    raise HTTPException(status_code=404, detail="Tank not found")
